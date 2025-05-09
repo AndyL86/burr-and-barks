@@ -77,27 +77,27 @@
         "padding_bottom": 36
       }
     },
-    "enhanced_video_hero_CFCGUF": {
+    "enhanced_video_hero_HqAec8": {
       "type": "enhanced-video-hero",
       "blocks": {
-        "headline_Pn9qaw": {
+        "headline_KAMEcp": {
           "type": "headline",
           "settings": {
             "headline": "Video with text",
             "headline_size": "m",
-            "headline_color": "#ffffff",
+            "headline_color": "#f4e7e7",
             "image_width": 250,
             "image_width_mobile": 200
           }
         },
-        "text_FDWMQ3": {
+        "text_hUTFtN": {
           "type": "text",
           "settings": {
             "text": "<p>Pair text with an video to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
             "text_width": 300
           }
         },
-        "button_kEHb8D": {
+        "button_crUwpp": {
           "type": "button",
           "settings": {
             "button_label": "Button label",
@@ -110,9 +110,9 @@
         }
       },
       "block_order": [
-        "headline_Pn9qaw",
-        "text_FDWMQ3",
-        "button_kEHb8D"
+        "headline_KAMEcp",
+        "text_hUTFtN",
+        "button_crUwpp"
       ],
       "name": "Enhanced video hero",
       "settings": {
@@ -121,16 +121,15 @@
         "dark_mode": true,
         "no_spacing": false,
         "title": "Enhanced Hero",
-        "subtitle": "Hero banner",
+        "subtitle": "Hero Banner",
         "overlay_tint": "light-tint",
         "video_desktop": "",
-        "video_height_desktop": "medium",
-        "image_placeholder_desktop": "shopify://shop_images/pexels-gustavo-fring-6816849.jpg",
-        "overlay_alignment": "center-left",
+        "video_height_desktop": "short",
+        "image_placeholder_desktop": "shopify://shop_images/86-Day-021N.jpg",
+        "overlay_alignment": "center-right",
         "block_positioning_bottom": false,
         "video_mobile": "",
         "video_height_mobile": "medium",
-        "image_placeholder_mobile": "shopify://shop_images/Image_7.jpg",
         "mobile_alignment": "center"
       }
     }
@@ -138,6 +137,6 @@
   "order": [
     "image_banner",
     "featured_collection",
-    "enhanced_video_hero_CFCGUF"
+    "enhanced_video_hero_HqAec8"
   ]
 }

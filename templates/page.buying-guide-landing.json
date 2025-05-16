@@ -11,13 +11,25 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "buying_guide_landing_9NKqQb": {
+      "type": "buying-guide-landing",
+      "name": "Buying Guide Landing",
+      "settings": {
+        "bg_landing_title": "",
+        "bg_landing_text": "",
+        "bg_landing_ribbon": "",
+        "bg_view_guide": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "buying_guide_landing_9NKqQb"
   ]
 }

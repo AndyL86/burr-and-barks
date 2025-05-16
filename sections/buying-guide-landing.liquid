@@ -1,0 +1,294 @@
+<style>
+  .bg-landing-container {
+    padding-bottom: 56px;
+  }
+
+  {% comment %} ------------- HEADER -------------- {% endcomment %}
+
+  .bg-landing-header {
+    text-align: center;
+  }
+
+  .bg-landing-text {
+    max-width: 670px;
+    margin: auto;
+    padding-top: 24px;
+  }
+
+  .bg-landing-filters {
+    padding-top: 32px;
+    margin: auto;
+    width: 50%;
+  }
+
+  .bg-landing-tablist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+  }
+
+  .bg-filter-tab.active {
+    font-weight: 600;
+    border-bottom: 3px solid #323232;
+  }
+
+  .bg-filter-tab {
+    padding: 0px 16px 8px 16px;
+  }
+
+  .bg-landing-tablist a {
+    cursor: pointer;
+  }
+
+  {% comment %} ------------- GRID -------------- {% endcomment %}
+
+  .bg-article-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .bg-landing-grid-container {
+    margin: 0 auto;
+    border-top: 1px solid #b2b2b2;
+  }
+
+  {% comment %} ------------- GRID CARDS -------------- {% endcomment %}
+
+  .bg-grid-card {
+    border: 1px solid #d1d1d1;
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+    width: 20%;
+    min-width: 270px;
+    margin: 32px 16px 0px 16px;
+  }
+
+  .bg-body-text {
+    padding: 12px 16px;
+    min-height: 177px;
+  }
+
+  .bg-ribbon {
+    position: absolute;
+    left: 0;
+    top: 16px;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 600;
+    color: #323232;
+    padding: 8px 12px 8px 8px;
+    background-color: #f8f6f1;
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .bg-image-container {
+    position: relative;
+  }
+
+  .bg-article-excerpt {
+    max-width: 100%;
+    padding-top: 12px;
+    min-height: 75px;
+  }
+
+  .bg-view-guide {
+    padding-top: 12px;
+    display: flex;
+    flex-direction: row;
+    text-decoration: underline;
+  }
+
+  .bg-view-guide a {
+    cursor: pointer;
+  }
+
+  .view-guide-svg svg {
+    height: 16px;
+    width: 16px;
+    text-decoration: none;
+    padding-left: 6px;
+  }
+
+  #article-category {
+    visibility: hidden;
+    height: 0px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .bg-article-grid {
+      flex-direction: column;
+      margin: auto;
+    }
+
+    .bg-grid-card {
+      width: auto;
+      margin: 24px 0px 0px 0px;
+    }
+
+    .bg-landing-container {
+      padding-bottom: 32px;
+    }
+
+    .bg-landing-filters {
+      padding-top: 24px;
+      width: 60%;
+    }
+
+    .bg-landing-text {
+      padding-top: 16px;
+    }
+  }
+
+  @media screen and (max-width: 619px) {
+    .bg-landing-filters {
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    .bg-landing-filters {
+      width: auto;
+    }
+  }
+</style>
+
+<div class="page-width bg-landing-container">
+  <header class="bg-landing-header">
+    <div class="font-section-headline">{{ section.settings.bg_landing_title }}</div>
+    <div class="font-text-s bg-landing-text">{{ section.settings.bg_landing_text }}</div>
+    <div class="bg-landing-filters">
+      <ul class="bg-landing-tablist" id="categoryTabList">
+        <a class="font-text-s bg-filter-tab active" id="bgFilterTab">All</a>
+      </ul>
+    </div>
+  </header>
+
+  <div class="bg-landing-grid-container">
+    <ul class="grid grid--uniform grid--blog bg-article-grid">
+      {% for page in pages %}
+        {% if page.template_suffix contains 'bg-article' %}
+          <li class="bg-grid-card">
+            <a href="{{ page.url }}">
+              <div class="bg-image-container">
+                <img
+                  src="{{ page.metafields.page.buying_guide_landing_page_image.value | image_url }}"
+                  alt=""
+                  height="200px"
+                  width="100%"
+                  style="object-fit: cover;"
+                >
+                <div class="font-text-s bg-ribbon">
+                  <span style="padding-right: 4px;">{% render 'icon-read-time' %}</span>
+                  {{ page.metafields.page.buying_guide_reading_time }}
+                  {{ section.settings.bg_landing_ribbon }}
+                </div>
+              </div>
+              <div class="bg-body-text">
+                <div class="font-text-s-bold">{{ page.metafields.page.buying_guide_article_title }}</div>
+                <div class="font-text-s" id="article-category">{{ page.metafields.page.buying_guide_category }}</div>
+                <div class="font-text-s bg-article-excerpt">
+                  {{ page.metafields.page.buying_guide_landing_excerpt }} ...
+                </div>
+                <div class="bg-view-guide">
+                  <a href="{{ page.url }}" class="font-text-s-bold">
+                    {{- section.settings.bg_view_guide -}}
+                    <span class="view-guide-svg">{% render 'icon-chevron-right' %}</span></a
+                  >
+                </div>
+              </div>
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Populate category tab filters
+  var articleCategoryList = [];
+  var articleCategoryListNo = [];
+  var articleCategory = document.querySelectorAll('#article-category');
+  var categoryTabs = document.querySelector('#categoryTabList');
+  for (let v = 0; v < articleCategory.length; v++) {
+    articleCategoryList.push(articleCategory[v].innerHTML);
+    articleCategoryList.forEach((categoryDupe) => {
+      if (!articleCategoryListNo.includes(categoryDupe)) {
+        articleCategoryListNo.push(categoryDupe);
+      }
+    });
+    if (articleCategoryListNo[v] != undefined) {
+      categoryTabs.innerHTML +=
+        '<a class="font-text-s bg-filter-tab" id="bgFilterTab">' + articleCategoryListNo[v] + '</a>';
+    }
+  }
+
+  // Category tab filter and bold
+  var bgLandingFilter = document.querySelectorAll('#bgFilterTab');
+  var articleGridCard = document.querySelectorAll('.bg-grid-card');
+  var filterCategory = document.querySelectorAll('#article-category');
+  Array.prototype.forEach.call(bgLandingFilter, (landingTab) =>
+    landingTab.addEventListener('click', () => {
+      if (landingTab.classList.contains('active')) return;
+      for (let t = 0; t < filterCategory.length; t++) {
+        if (landingTab.innerHTML != articleCategoryList[t]) {
+          articleGridCard[t].style.display = articleGridCard[t].style.display === 'none' ? ' ' : 'none';
+          bgLandingFilter.forEach((tabSibling) => tabSibling.classList.remove('active'));
+          landingTab.classList.add('active');
+        } else if (landingTab.innerHTML === articleCategoryList[t]) {
+          articleGridCard[t].style.display = articleGridCard[t].style.display === 'inline-block' ? ' ' : 'inline-block';
+          bgLandingFilter.forEach((tabSibling) => tabSibling.classList.remove('active'));
+          landingTab.classList.add('active');
+        } else {
+          return;
+        }
+        bgLandingFilter[0].addEventListener('click', () => {
+          articleGridCard.forEach((filterAll) => {
+            filterAll.style.display = 'inline-block';
+          });
+        });
+      }
+    })
+  );
+</script>
+
+{% schema %}
+{
+  "name": "Buying Guide Landing",
+  "class": "section-bg-landing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "bg_landing_title",
+      "label": "Landing page header title"
+    },
+    {
+      "type": "text",
+      "id": "bg_landing_text",
+      "label": "Landing page header text"
+    },
+    {
+      "type": "text",
+      "id": "bg_landing_ribbon",
+      "label": "Article ribbon text"
+    },
+    {
+      "type": "text",
+      "id": "bg_view_guide",
+      "label": "Article card 'view guide' text"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Buying Guide Landing"
+    }
+  ]
+}
+{% endschema %}
